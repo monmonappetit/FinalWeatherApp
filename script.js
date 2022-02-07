@@ -39,20 +39,20 @@ let currentTime = document.querySelector("#time");
 currentTime.innerHTML = `⏰ ${timeFormat}`;
 
 function searchCity(event) {
-  event.preventDefault();
-  let yourCity = document.querySelector("#city");
-  let cityInput = document.querySelector("#citySearchInput");
-  yourCity.innerHTML = cityInput.value;
-  let apiKey = "858d477189f385816ffe23d2ae072edf";
-  let units = "imperial";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${units}`;
-  axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
+    event.preventDefault();
+    let yourCity = document.querySelector("#city");
+    let cityInput = document.querySelector("#citySearchInput");
+    yourCity.innerHTML = "🏙 " + cityInput.value;
+    let apiKey = "858d477189f385816ffe23d2ae072edf";
+    let units = "imperial";
+    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${units}`;
+    axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
 }
 
 function displayTemperature(response) {
-  let yourTemperature = Math.round(response.data.main.temp);
-  let yourWeather = document.querySelector("#temperature");
-  yourWeather.innerHTML = `🌡 ${yourTemperature}° F`;
+    let yourTemperature = Math.round(response.data.main.temp);
+    let yourWeather = document.querySelector("#temperature");
+    yourWeather.innerHTML = `🌡 ${yourTemperature}° F`;
 }
 
 let yourCityForm = document.querySelector("#citySearch");

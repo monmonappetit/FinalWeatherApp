@@ -29,6 +29,9 @@ let currentMonth = months[now.getMonth()];
 let currentYear = now.getFullYear();
 let currentHour = now.getHours();
 let currentMinutes = now.getMinutes();
+if (currentMinutes < 10) {
+  currentMinutes = `0${currentMinutes}`;
+}
 let dateFormat = `${currentDay}, ${currentMonth} ${date}, ${currentYear}`;
 let timeFormat = `${currentHour}:${currentMinutes}`;
 

@@ -20,7 +20,8 @@ li {
 
 .active {
     color: rgb(33, 33, 33);
-    cursor: default;  
+    cursor: default;
+    text-decoration: none;
 }
 
 .active:hoover {

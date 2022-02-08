@@ -54,7 +54,7 @@ function searchCity(event) {
 
 function displayTemperature(response) {
     let yourWeatherIcon = document.querySelector("#weatherIcon")
-    let yourTemperature = Math.round(response.data.main.temp);
+    let fahrenheitTemp = Math.round(response.data.main.temp);
     let yourCurrentWeather = document.querySelector("#currentWeather");
     let yourHumidity = document.querySelector("#humidity");
     let yourWindspeed = document.querySelector("#windSpeed");
@@ -69,8 +69,44 @@ function displayTemperature(response) {
     yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
     yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity;
     yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed);
-    yourWeather.innerHTML = `🌡 ${yourTemperature}° F`;
+    yourWeather.innerHTML = `🌡 ${fahrenheitTemp}° F`;
 }
 
 let yourCityForm = document.querySelector("#citySearch");
 yourCityForm.addEventListener("submit", searchCity);
+
+function fahrenheitTemperature(event) {
+  event.preventDefault();
+  celsiusConversion.classList.remove("active");
+  fahrenheitConversion.classList.add("active");
+  let yourTemperature = document.querySelector("#temperature");
+  yourTemperature.innerHTML = "🌡 " + fahrenheitTemp + "° F";
+}
+
+function celsiusTemperature(event) {
+  event.preventDefault();
+  celsiusConversion.classList.add("active");
+  fahrenheitConversion.classList.remove("active");
+  let yourTemperature = document.querySelector("#temperature");
+  let celsiusTemp = Math.round(((fahrenheitTemp - 32) * 5) / 9);
+  yourTemperature.innerHTML = "🌡 " + celsiusTemp + "° C";
+}
+
+let fahrenheitTemp = null;
+
+let celsiusConversion = document.querySelector("#convertCelsius");
+celsiusConversion.addEventListener("click", celsiusTemperature);
+
+let fahrenheitConversion = document.querySelector("#convertFahrenheit");
+fahrenheitConversion.addEventListener("click", fahrenheitTemperature);
+
+function searchForecast(city) {
+  let apiKey = "858d477189f385816ffe23d2ae072edf";
+  let units = "imperial";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}`;
+  let yourCity = document.querySelector("#city");
+  yourCity.innerHTML =  "🏙 " + city;
+  axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
+}
+
+searchForecast("Las Vegas");

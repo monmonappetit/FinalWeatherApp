@@ -26,3 +26,7 @@ li {
 .active:hoover {
     text-decoration: none;
 }
+
+.footer {
+    text-align: center;
+}

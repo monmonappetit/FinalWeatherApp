@@ -59,8 +59,8 @@ function displayTemperature(response) {
     let yourWindspeed = document.querySelector("#windSpeed");
     let yourWeather = document.querySelector("#temperature");
     yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
-    yourHumidity.innerHTML = "🔥 " + response.data.main.humidity;
-    yourWindspeed.innerHTML = "🍃 " + Math.round(response.data.wind.speed);
+    yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity;
+    yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed);
     yourWeather.innerHTML = `🌡 ${yourTemperature}° F`;
 }
 

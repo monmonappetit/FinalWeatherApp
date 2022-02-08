@@ -53,11 +53,19 @@ function searchCity(event) {
 }
 
 function displayTemperature(response) {
+    let yourWeatherIcon = document.querySelector("#weatherIcon")
     let yourTemperature = Math.round(response.data.main.temp);
     let yourCurrentWeather = document.querySelector("#currentWeather");
     let yourHumidity = document.querySelector("#humidity");
     let yourWindspeed = document.querySelector("#windSpeed");
     let yourWeather = document.querySelector("#temperature");
+    yourWeatherIcon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    yourWeatherIcon.setAttribute(
+      "alt", response.data.weather[0].description
+    );
     yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
     yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity;
     yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed);

@@ -42,33 +42,38 @@ let currentTime = document.querySelector("#time");
 currentTime.innerHTML = `⏰ ${timeFormat}`;
 
 function searchCity(event) {
-    event.preventDefault();
-    let yourCity = document.querySelector("#city");
-    let cityInput = document.querySelector("#citySearchInput");
-    yourCity.innerHTML = "🏙 " + cityInput.value;
-    searchForecast(cityInput.value);
+  event.preventDefault();
+  let cityInput = document.querySelector("#citySearchInput");
+  searchForecast(cityInput.value);
+}
+
+function searchForecast(city) {
+  let apiKey = "858d477189f385816ffe23d2ae072edf";
+  let units = "imperial";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}`;
+  axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
 }
 
 function displayTemperature(response) {
-    let yourWeatherIcon = document.querySelector("#weatherIcon")
-    let yourCurrentWeather = document.querySelector("#currentWeather");
-    let yourHumidity = document.querySelector("#humidity");
-    let yourWindspeed = document.querySelector("#windSpeed");
-    let yourWeather = document.querySelector("#temperature");
-    let yourCity = document.querySelector("#city");
-    fahrenheitTemp = response.data.main.temp;
-    yourWeatherIcon.setAttribute(
-      "src",
-      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    );
-    yourWeatherIcon.setAttribute(
-      "alt", response.data.weather[0].description
-    );
-    yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
-    yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity + "%";
-    yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed) + " km/h";
-    yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
-    yourCity.innerHTML = response.data.name;
+  let yourWeatherIcon = document.querySelector("#weatherIcon")
+  let yourCurrentWeather = document.querySelector("#currentWeather");
+  let yourHumidity = document.querySelector("#humidity");
+  let yourWindspeed = document.querySelector("#windSpeed");
+  let yourWeather = document.querySelector("#temperature");
+  let yourCity = document.querySelector("#city");
+  fahrenheitTemp = response.data.main.temp;
+  yourWeatherIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  yourWeatherIcon.setAttribute(
+    "alt", response.data.weather[0].description
+  );
+  yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
+  yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity + "%";
+  yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed) + " km/h";
+  yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
+  yourCity.innerHTML = "🏙 " + response.data.name;
 }
 
 function fahrenheitTemperature(event) {
@@ -98,12 +103,5 @@ celsiusConversion.addEventListener("click", celsiusTemperature);
 
 let fahrenheitConversion = document.querySelector("#convertFahrenheit");
 fahrenheitConversion.addEventListener("click", fahrenheitTemperature);
-
-function searchForecast(city) {
-  let apiKey = "858d477189f385816ffe23d2ae072edf";
-  let units = "imperial";
-  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}`;
-  axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
-}
 
 searchForecast("Las Vegas");

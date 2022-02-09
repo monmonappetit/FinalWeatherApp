@@ -46,6 +46,7 @@ function searchCity(event) {
     let yourCity = document.querySelector("#city");
     let cityInput = document.querySelector("#citySearchInput");
     yourCity.innerHTML = "🏙 " + cityInput.value;
+    search(cityInput.value);
     let apiKey = "858d477189f385816ffe23d2ae072edf";
     let units = "imperial";
     let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${units}`;
@@ -54,11 +55,11 @@ function searchCity(event) {
 
 function displayTemperature(response) {
     let yourWeatherIcon = document.querySelector("#weatherIcon")
-    let fahrenheitTemp = Math.round(response.data.main.temp);
     let yourCurrentWeather = document.querySelector("#currentWeather");
     let yourHumidity = document.querySelector("#humidity");
     let yourWindspeed = document.querySelector("#windSpeed");
     let yourWeather = document.querySelector("#temperature");
+    fahrenheitTemp = response.data.main.temp;
     yourWeatherIcon.setAttribute(
       "src",
       `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -69,18 +70,15 @@ function displayTemperature(response) {
     yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
     yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity;
     yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed);
-    yourWeather.innerHTML = `🌡 ${fahrenheitTemp}° F`;
+    yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
 }
-
-let yourCityForm = document.querySelector("#citySearch");
-yourCityForm.addEventListener("submit", searchCity);
 
 function fahrenheitTemperature(event) {
   event.preventDefault();
   celsiusConversion.classList.remove("active");
   fahrenheitConversion.classList.add("active");
   let yourTemperature = document.querySelector("#temperature");
-  yourTemperature.innerHTML = "🌡 " + fahrenheitTemp + "° F";
+  yourTemperature.innerHTML = "🌡 " + Math.round(fahrenheitTemp) + "° F";
 }
 
 function celsiusTemperature(event) {
@@ -88,11 +86,14 @@ function celsiusTemperature(event) {
   celsiusConversion.classList.add("active");
   fahrenheitConversion.classList.remove("active");
   let yourTemperature = document.querySelector("#temperature");
-  let celsiusTemp = Math.round(((fahrenheitTemp - 32) * 5) / 9);
-  yourTemperature.innerHTML = "🌡 " + celsiusTemp + "° C";
+  let celsiusTemp = (fahrenheitTemp - 32) * 5 / 9;
+  yourTemperature.innerHTML = "🌡 " + Math.round(celsiusTemp) + "° C";
 }
 
 let fahrenheitTemp = null;
+
+let yourCityForm = document.querySelector("#citySearch");
+yourCityForm.addEventListener("submit", searchCity);
 
 let celsiusConversion = document.querySelector("#convertCelsius");
 celsiusConversion.addEventListener("click", celsiusTemperature);

@@ -46,11 +46,7 @@ function searchCity(event) {
     let yourCity = document.querySelector("#city");
     let cityInput = document.querySelector("#citySearchInput");
     yourCity.innerHTML = "🏙 " + cityInput.value;
-    search(cityInput.value);
-    let apiKey = "858d477189f385816ffe23d2ae072edf";
-    let units = "imperial";
-    let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&units=${units}`;
-    axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
+    searchForecast(cityInput.value);
 }
 
 function displayTemperature(response) {
@@ -59,6 +55,7 @@ function displayTemperature(response) {
     let yourHumidity = document.querySelector("#humidity");
     let yourWindspeed = document.querySelector("#windSpeed");
     let yourWeather = document.querySelector("#temperature");
+    let yourCity = document.querySelector("#city");
     fahrenheitTemp = response.data.main.temp;
     yourWeatherIcon.setAttribute(
       "src",
@@ -68,9 +65,10 @@ function displayTemperature(response) {
       "alt", response.data.weather[0].description
     );
     yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
-    yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity;
-    yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed);
+    yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity + "%";
+    yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed) + " km/h";
     yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
+    yourCity.innerHTML = response.data.name;
 }
 
 function fahrenheitTemperature(event) {
@@ -105,8 +103,6 @@ function searchForecast(city) {
   let apiKey = "858d477189f385816ffe23d2ae072edf";
   let units = "imperial";
   let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}`;
-  let yourCity = document.querySelector("#city");
-  yourCity.innerHTML =  "🏙 " + city;
   axios.get(`${apiURL}&appid=${apiKey}`).then(displayTemperature);
 }
 

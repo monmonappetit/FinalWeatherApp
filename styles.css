@@ -45,3 +45,7 @@ li {
 .forecast-temperatures {
     font-size: 14px;
 }
+
+.forecast-temp-min {
+    color: gray;
+}

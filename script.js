@@ -124,32 +124,7 @@ function displayForecast(response) {
   forecastSection.innerHTML = forecastHTML;
 }
 
-function fahrenheitTemperature(event) {
-  event.preventDefault();
-  celsiusConversion.classList.remove("active");
-  fahrenheitConversion.classList.add("active");
-  let yourTemperature = document.querySelector("#temperature");
-  yourTemperature.innerHTML = "🌡 " + Math.round(fahrenheitTemp) + "° F";
-}
-
-function celsiusTemperature(event) {
-  event.preventDefault();
-  celsiusConversion.classList.add("active");
-  fahrenheitConversion.classList.remove("active");
-  let yourTemperature = document.querySelector("#temperature");
-  let celsiusTemp = (fahrenheitTemp - 32) * 5 / 9;
-  yourTemperature.innerHTML = "🌡 " + Math.round(celsiusTemp) + "° C";
-}
-
-let fahrenheitTemp = null;
-
 let yourCityForm = document.querySelector("#citySearch");
 yourCityForm.addEventListener("submit", searchCity);
-
-let celsiusConversion = document.querySelector("#convertCelsius");
-celsiusConversion.addEventListener("click", celsiusTemperature);
-
-let fahrenheitConversion = document.querySelector("#convertFahrenheit");
-fahrenheitConversion.addEventListener("click", fahrenheitTemperature);
 
 searchForecast("Las Vegas");

@@ -31,3 +31,17 @@ li {
 .footer {
     text-align: center;
 }
+
+.weather-forecast {
+    text-align: center;
+    padding: 50px;
+}
+
+.forecast-date {
+    font-size: 25px;
+    opacity: 0.5;
+}
+
+.forecast-temperatures {
+    font-size: 14px;
+}

@@ -41,6 +41,13 @@ todayDate.innerHTML = `📅 ${dateFormat}`;
 let currentTime = document.querySelector("#time");
 currentTime.innerHTML = `⏰ ${timeFormat}`;
 
+function forecastDays(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
 function searchCity(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#citySearchInput");
@@ -74,6 +81,47 @@ function displayTemperature(response) {
   yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed) + " km/h";
   yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
   yourCity.innerHTML = "🏙 " + response.data.name;
+  showForecast(response.data.coord);
+}
+
+function showForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "858d477189f385816ffe23d2ae072edf";
+  let units = "imperial";
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=${units}`;
+  axios.get(`${apiURL}&appid=${apiKey}`).then(displayForecast);
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastSection = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML = forecastHTML +
+      `
+      <div class="col-2">
+        <div class="forecast-date">
+          ${forecastDays(forecastDay.dt)}
+        </div>
+        <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png"
+          alt=""
+          width="30"
+        />
+        <div class="forecast-temperatures">
+          <span class="forecast-temp-max">
+            ${Math.round(forecastDay.temp.max)}°
+          </span>
+          <span class="forecast-temp-min">
+            ${Math.round(forecastDay.temp.min)}°
+          </span>
+        </div>
+      </div>
+      `;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastSection.innerHTML = forecastHTML;
 }
 
 function fahrenheitTemperature(event) {

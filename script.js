@@ -82,6 +82,7 @@ function displayTemperature(response) {
   yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
   yourCity.innerHTML = "🏙 " + response.data.name;
   showForecast(response.data.coord);
+  clothingTips(fahrenheitTemp);
 }
 
 function showForecast(coordinates) {
@@ -126,5 +127,14 @@ function displayForecast(response) {
 
 let yourCityForm = document.querySelector("#citySearch");
 yourCityForm.addEventListener("submit", searchCity);
+
+function clothingTips(temperature) {
+  let tip = document.querySelector("#tips");
+  if (temperature > 70) {
+    tip.innerHTML = "💁🏻‍♀️ Today's Tip: Stay hydrated, and wear lightweight, breathable clothing! ☀️";
+  } else {
+    tip.innerHTML = "💁🏻‍♀️ Today's Tip: Wear a jacket, and treat yourself to a warm drink, like a tea or a latte! 🥶☕️";
+  }
+}
 
 searchForecast("Las Vegas");

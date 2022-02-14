@@ -56,3 +56,8 @@ li {
 #secondColumn {
     text-align: center;
 }
+
+#tips {
+    font-weight: bold;
+    color: #7393B3;
+}

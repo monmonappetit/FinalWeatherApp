@@ -5,6 +5,9 @@ body {
 .weatherApp {
     max-width: 500px;
     margin: 100px auto;
+    padding: 20px;
+    border: 5px solid #7393B3;
+    border-radius: 20px;
 }
 
 ul {
@@ -48,4 +51,8 @@ li {
 
 .forecast-temp-min {
     color: gray;
+}
+
+#secondColumn {
+    text-align: center;
 }

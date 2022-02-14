@@ -76,7 +76,7 @@ function displayTemperature(response) {
   yourWeatherIcon.setAttribute(
     "alt", response.data.weather[0].description
   );
-  yourCurrentWeather.innerHTML = "🌤 " + response.data.weather[0].description;
+  yourCurrentWeather.innerHTML = response.data.weather[0].description;
   yourHumidity.innerHTML = "🔥 Humidity: " + response.data.main.humidity + "%";
   yourWindspeed.innerHTML = "🍃 Windspeed: " + Math.round(response.data.wind.speed) + " km/h";
   yourWeather.innerHTML = `🌡 ${Math.round(fahrenheitTemp)}° F`;
